@@ -6,11 +6,11 @@ $(document).ready(function() {
     let promise = new Promise(function(resolve, reject){
       console.log(7);
       let request = new XMLHttpRequest();
-      console.log(9, request);
+      console.log(9, request.onload);
       let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=adfda684d78d4876a3e77e8dbfb6c5b9`
       console.log(11, url);
       request.onload = function() {
-        console.log(13, request);
+        console.log(13, request.onload);
         if (this.status === 200) {
           console.log(15);
           resolve(request.response);
@@ -21,7 +21,6 @@ $(document).ready(function() {
           console.log(21);
         }
         console.log(23,promise)
-        // }
       }
       console.log(25);
       request.open('GET', url, true);
@@ -29,9 +28,11 @@ $(document).ready(function() {
       request.send();
       console.log(29);
     });
+    console.log(31);
 
     promise.then(function(response) {
       body = JSON.parse(response);
+      console.log(35,body);
       $('.showHumidity').text(`The humidity in ${city} is ${body.main.humidity}%`);
       $('showTemp').text(`The temperature in Kelvins is ${body.main.temp} degrees.`);
     }, function(error) {
